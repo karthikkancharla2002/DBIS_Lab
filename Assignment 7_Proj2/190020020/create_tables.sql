@@ -1,0 +1,7 @@
+create table voter(voter_id int, name varchar(30), gender varchar(6), dob date, city varchar(15), state varchar(25), address varchar(50), password varchar(15), primary key(voter_id));
+create table positions(position_id int, position_name varchar(30), primary key(position_id));
+create table candidate(candidate_id int, name varchar(30), gender varchar(6), dob date, city varchar(15), state varchar(25), address varchar(50), position_id int, foreign key(position_id) references positions(position_id), primary key(candidate_id), manifesto varchar(100));
+create table canvote(canvote_id int NOT NULL AUTO_INCREMENT, voter_id int, position_id int, primary key(canvote_id), foreign key(voter_id) references voter(voter_id), foreign key(position_id) references positions(position_id), UNIQUE (voter_id, position_id));
+create table votes(votes_id int NOT NULL AUTO_INCREMENT, candidate_id int, canvote_id int, foreign key(canvote_id) references canvote(canvote_id), foreign key(candidate_id) references candidate(candidate_id), primary key(votes_id), UNIQUE (canvote_id));
+create table stage(stage_id int, current_stage int, primary key(stage_id));
+create table admin(admin_id int, name varchar(30), password varchar(15), primary key(admin_id));
